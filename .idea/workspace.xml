@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b7f5d68-77de-485f-8eb1-9e992b2be435" name="Default" comment="m">
-      <change beforePath="$PROJECT_DIR$/../../../project/lite-rpc/.idea/compiler.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/../../../project/lite-rpc/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/../../../project/lite-rpc/.idea/misc.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/../../../project/lite-rpc/.idea/modules.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/../../../project/lite-rpc/.idea/vcs.xml" afterPath="" />
+    <list default="true" id="9b7f5d68-77de-485f-8eb1-9e992b2be435" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../../../project/lite-rpc/.idea/workspace.xml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/../../../project/lite-rpc/out/" />
