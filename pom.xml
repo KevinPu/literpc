@@ -14,12 +14,34 @@
     </modules>
 
     <properties>
-
+        <spring_version>4.3.14.RELEASE</spring_version>
+        <netty_version>4.1.21.Final</netty_version>
+        <zookeeper_version>3.4.9</zookeeper_version>
+        <zkclient_version>0.2</zkclient_version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zkclient_version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
