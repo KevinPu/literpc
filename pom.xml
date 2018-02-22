@@ -4,13 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.lite-rpc</groupId>
-    <artifactId>lite-rpc</artifactId>
+    <groupId>io.literpc</groupId>
+    <artifactId>literpc</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>lite-rpc-registry</module>
-        <module>lite-rpc-demo</module>
+        <module>literpc-registry</module>
+        <module>literpc-demo</module>
+        <module>literpc-config</module>
+        <module>literpc-transport</module>
+        <module>literpc-protocol</module>
+        <module>literpc-cluster</module>
     </modules>
 
     <properties>
