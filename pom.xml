@@ -22,8 +22,8 @@
         <netty_version>4.1.21.Final</netty_version>
         <zookeeper_version>3.4.9</zookeeper_version>
         <zkclient_version>0.2</zkclient_version>
+        <cooma_version>0.4.1-SNAPSHOT</cooma_version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -45,6 +45,12 @@
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${zkclient_version}</version>
+            </dependency>
+            <!-- SPI 扩展框架 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>cooma</artifactId>
+                <version>${cooma_version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
