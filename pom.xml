@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.literpc</groupId>
-    <artifactId>literpc</artifactId>
+    <artifactId>literpc-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
@@ -15,6 +15,7 @@
         <module>literpc-transport</module>
         <module>literpc-protocol</module>
         <module>literpc-cluster</module>
+        <module>literpc-all</module>
     </modules>
 
     <properties>

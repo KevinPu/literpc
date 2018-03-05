@@ -29,7 +29,11 @@
             <scope>test</scope>
         </dependency>
 
-
+        <dependency>
+            <groupId>io.literpc</groupId>
+            <artifactId>literpc</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LiterpcDemoConsumerApplication {
+public class ConsumerApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LiterpcDemoConsumerApplication.class, args);
+		SpringApplication.run(ConsumerApp.class, args);
 	}
 }

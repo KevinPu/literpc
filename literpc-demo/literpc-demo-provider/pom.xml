@@ -8,6 +8,13 @@
 
 	<name>literpc-demo-provider</name>
 	<description>Demo project for Spring Boot</description>
+    <dependencies>
+        <dependency>
+            <groupId>io.literpc</groupId>
+            <artifactId>literpc-demo-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>io.literpc</groupId>
