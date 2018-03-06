@@ -1,66 +1,31 @@
 package io.literpc.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 /**
  * @author kevin Pu
  */
+@Configuration
 public class LiterpcConfig {
 
-    /**
-     * application name
-     */
+    @Value("${spring.literpc.appname}")
     private String appname;
-    /**
-     * registry address
-     */
+    @Value("${spring.literpc.registry}")
     private String registry;
-    /**
-     * communication protocol
-     */
+    @Value("${spring.literpc.protocol}")
     private String protocol;
-    /**
-     * listen port, default 20800
-     */
+    @Value("${spring.literpc.port}")
     private int port = 20800;
 
-    public String getAppname() {
-        return appname;
-    }
-
-    public void setAppname(String appname) {
-        this.appname = appname;
-    }
-
-    public String getRegistry() {
-        return registry;
-    }
-
-    public void setRegistry(String registry) {
-        this.registry = registry;
-    }
-
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    @Override
-    public String toString() {
-        return "LiterpcConfig{" +
-                "appname='" + appname + '\'' +
-                ", registry='" + registry + '\'' +
-                ", protocol='" + protocol + '\'' +
-                ", port=" + port +
-                '}';
+    @Bean
+    public LiterpcProperties literpcProperties() {
+        LiterpcProperties literpcProperties = new LiterpcProperties();
+        literpcProperties.setAppname(appname);
+        literpcProperties.setRegistry(registry);
+        literpcProperties.setProtocol(protocol);
+        literpcProperties.setPort(port);
+        return literpcProperties;
     }
 }

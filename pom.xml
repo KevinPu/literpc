@@ -2,6 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+        <relativePath/>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.literpc</groupId>
@@ -19,7 +26,6 @@
     </modules>
 
     <properties>
-        <spring_version>4.3.14.RELEASE</spring_version>
         <netty_version>4.1.21.Final</netty_version>
         <zookeeper_version>3.4.9</zookeeper_version>
         <zkclient_version>0.2</zkclient_version>
@@ -27,11 +33,6 @@
     </properties>
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring_version}</version>
-            </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>

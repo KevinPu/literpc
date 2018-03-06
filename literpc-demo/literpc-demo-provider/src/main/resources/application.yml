@@ -1,0 +1,6 @@
+spring:
+  literpc:
+    appname: up-service-demo
+    registry: zookeeper://zookeeper.server:2181
+    protocol: rpc
+    port: 20800 # 默认 20800

@@ -1,0 +1,5 @@
+spring:
+  literpc:
+    appname: up-service-demo
+    registry: zookeeper://zookeeper.server:2181
+    protocol: rpc
