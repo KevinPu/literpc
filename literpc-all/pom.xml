@@ -34,6 +34,11 @@
         </dependency>
         <dependency>
             <groupId>io.literpc</groupId>
+            <artifactId>literpc-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.literpc</groupId>
             <artifactId>literpc-cluster</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -90,6 +95,7 @@
                                     <include>io.literpc:literpc-registry</include>
                                     <include>io.literpc:literpc-protocol</include>
                                     <include>io.literpc:literpc-transport</include>
+                                    <include>io.literpc:literpc-core</include>
                                     <include>io.literpc:literpc-cluster</include>
                                 </includes>
                             </artifactSet>

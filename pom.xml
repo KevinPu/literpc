@@ -23,6 +23,7 @@
         <module>literpc-protocol</module>
         <module>literpc-cluster</module>
         <module>literpc-all</module>
+        <module>literpc-core</module>
     </modules>
 
     <properties>

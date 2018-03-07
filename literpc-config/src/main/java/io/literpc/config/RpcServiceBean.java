@@ -32,7 +32,7 @@ public class RpcServiceBean<T> implements InitializingBean, ApplicationContextAw
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         this.literpcProperties = applicationContext.getBean(LiterpcProperties.class);
     }
 
@@ -43,6 +43,7 @@ public class RpcServiceBean<T> implements InitializingBean, ApplicationContextAw
 
 
     private void export() {
+
     }
 
     public String getInterfaceName() {
