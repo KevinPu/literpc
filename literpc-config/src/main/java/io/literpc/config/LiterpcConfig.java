@@ -16,8 +16,8 @@ public class LiterpcConfig {
     private String registry;
     @Value("${spring.literpc.protocol}")
     private String protocol;
-    @Value("${spring.literpc.port}")
-    private int port = 20800;
+    @Value("${spring.literpc.port:20800}")
+    private int port;
 
     @Bean
     public LiterpcProperties literpcProperties() {

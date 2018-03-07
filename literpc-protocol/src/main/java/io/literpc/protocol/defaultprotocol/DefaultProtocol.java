@@ -6,4 +6,9 @@ import io.literpc.protocol.Protocol;
  * @author kevin Pu
  */
 public class DefaultProtocol implements Protocol {
+
+    @Override
+    public void export() {
+
+    }
 }
