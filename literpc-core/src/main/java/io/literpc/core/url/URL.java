@@ -11,10 +11,8 @@ public class URL implements Serializable {
 
     private final String protocol;
 
-    // by default, host to registry
     private final String host;
 
-    // by default, port to registry
     private final int port;
 
     private final String path;
@@ -35,6 +33,10 @@ public class URL implements Serializable {
         this.port = port;
         this.path = path;
         this.parameters = parameters;
+    }
+
+    public URL(String protocol, int port, String path) {
+        this(protocol, null, port, path, null);
     }
 
     public String getProtocol() {

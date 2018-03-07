@@ -1,11 +1,16 @@
 package io.literpc.core.invoker;
 
+import io.literpc.core.response.RpcResponse;
+import io.literpc.core.url.URL;
+
 /**
  * @author kevin Pu
  */
 public interface Invoker<T> {
 
-    void invoke();
+    RpcResponse invoke();
+
+    URL getUrl();
 
     Class<T> getInterface();
 
