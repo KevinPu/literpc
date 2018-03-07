@@ -51,6 +51,10 @@ public class RpcServiceAnnotationBeanPostProcessor implements BeanDefinitionRegi
         scanner.setBeanNameGenerator(beanNameGenerator);
 
         for (String packageToScan : packagesToScan) {
+
+            // Registers @Service Bean first
+            scanner.scan(packageToScan);
+
             Set<BeanDefinition> beanDefinitions = scanner.findCandidateComponents(packageToScan);
 
             for (BeanDefinition beanDefinition : beanDefinitions) {
