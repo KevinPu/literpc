@@ -8,7 +8,7 @@ import io.literpc.core.url.URL;
  */
 public interface Transporter {
 
-    Server bind(URL url);
+    Server create(URL url, MessageHandler handler);
 
     Client connect(URL url);
 }

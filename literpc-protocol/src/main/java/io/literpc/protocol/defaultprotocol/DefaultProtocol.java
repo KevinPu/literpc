@@ -5,6 +5,8 @@ import io.literpc.core.exporter.Exporter;
 import io.literpc.core.invoker.Invoker;
 import io.literpc.core.url.URL;
 import io.literpc.protocol.Protocol;
+import io.literpc.transport.Channel;
+import io.literpc.transport.MessageHandler;
 import io.literpc.transport.Server;
 import io.literpc.transport.Transporter;
 import io.literpc.transport.netty.NettyTransporter;
@@ -16,17 +18,32 @@ public class DefaultProtocol implements Protocol {
 
     private static final Transporter transporter = new NettyTransporter();
 
+    private MessageHandler handler;
+
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) {
 
+        initMessageHandler(invoker);
+
         Exporter<T> exporter = new DefaultExPorter<T>(invoker);
+
         openServer(invoker.getUrl());
 
         return exporter;
     }
 
+    private <T> void initMessageHandler(Invoker<T> invoker) {
+        handler = new MessageHandler() {
+            @Override
+            public Object handle(Channel channel, Object message) {
+                return null;
+            }
+        };
+    }
+
     private void openServer(URL url) {
 
-        Server server = transporter.bind(url);
+        Server server = transporter.create(url, handler);
+        server.open();
     }
 }

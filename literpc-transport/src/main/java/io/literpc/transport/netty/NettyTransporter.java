@@ -2,6 +2,7 @@ package io.literpc.transport.netty;
 
 import io.literpc.core.url.URL;
 import io.literpc.transport.Client;
+import io.literpc.transport.MessageHandler;
 import io.literpc.transport.Server;
 import io.literpc.transport.Transporter;
 
@@ -11,8 +12,8 @@ import io.literpc.transport.Transporter;
 public class NettyTransporter implements Transporter {
 
     @Override
-    public Server bind(URL url) {
-        return new NettyServer(url);
+    public Server create(URL url, MessageHandler handler) {
+        return new NettyServer(url, handler);
     }
 
     @Override
