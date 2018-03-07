@@ -28,7 +28,7 @@
     <properties>
         <netty_version>4.1.21.Final</netty_version>
         <zookeeper_version>3.4.9</zookeeper_version>
-        <zkclient_version>0.2</zkclient_version>
+        <zkclient_version>0.10</zkclient_version>
         <cooma_version>0.4.1-SNAPSHOT</cooma_version>
     </properties>
     <dependencyManagement>

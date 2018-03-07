@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>io.literpc</groupId>
-            <artifactId>literpc</artifactId>
+            <artifactId>literpc-all</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

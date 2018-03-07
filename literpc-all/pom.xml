@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>literpc</artifactId>
+    <artifactId>literpc-all</artifactId>
 
     <dependencies>
         <dependency>
