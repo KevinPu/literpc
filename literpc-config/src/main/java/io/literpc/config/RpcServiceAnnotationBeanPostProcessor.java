@@ -3,6 +3,7 @@ package io.literpc.config;
 import io.literpc.config.annotation.RpcService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanClassLoaderAware;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
@@ -20,7 +21,6 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import java.util.Set;
 
 import static org.springframework.beans.factory.support.BeanDefinitionBuilder.rootBeanDefinition;
-import static org.springframework.beans.factory.support.BeanDefinitionReaderUtils.registerWithGeneratedName;
 import static org.springframework.util.ClassUtils.resolveClassName;
 
 /**
@@ -64,18 +64,28 @@ public class RpcServiceAnnotationBeanPostProcessor implements BeanDefinitionRegi
                 if (allInterfaces.length > 0) {
                     interfaceClass = allInterfaces[0];
                 }
-
+                if (interfaceClass == null) {
+                    throw new NoSuchBeanDefinitionException(beanDefinition.getBeanClassName());
+                }
                 String beanName = beanNameGenerator.generateBeanName(beanDefinition, registry);
                 AbstractBeanDefinition serviceBeanDefinition = rootBeanDefinition(RpcServiceBean.class)
                         .addPropertyReference("ref", beanName)
                         .addPropertyValue("interfaceClass", interfaceClass)
+                        .addPropertyValue("interfaceName", interfaceClass.getName())
                         .getBeanDefinition();
 
-                registerWithGeneratedName(serviceBeanDefinition, registry);
+                // ServiceBean Bean name
+                String serviceBeanName = generateServiceBeanName(interfaceClass, beanName);
 
+                registry.registerBeanDefinition(serviceBeanName, serviceBeanDefinition);
             }
-
         }
+    }
+
+    private String generateServiceBeanName(Class<?> interfaceClass, String annotatedServiceBeanName) {
+
+        return "ServiceBean@" + interfaceClass.getName() + "#" + annotatedServiceBeanName;
+
     }
 
     @Override
