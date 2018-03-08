@@ -1,9 +1,9 @@
 package io.literpc.transport.netty;
 
 import io.literpc.core.url.URL;
-import io.literpc.transport.Client;
-import io.literpc.transport.MessageHandler;
-import io.literpc.transport.Server;
+import io.literpc.core.client.Client;
+import io.literpc.core.handler.MessageHandler;
+import io.literpc.core.server.Server;
 import io.literpc.transport.Transporter;
 
 /**

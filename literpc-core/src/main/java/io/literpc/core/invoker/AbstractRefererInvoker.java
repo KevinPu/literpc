@@ -7,21 +7,33 @@ import io.literpc.core.url.URL;
 /**
  * @author kevin Pu
  */
-public class AbstractRefererInvoker<T> implements Invoker<T> {
+public abstract class AbstractRefererInvoker<T> implements Invoker<T> {
 
-    @Override
-    public Response invoke(Request request) {
-        return null;
+    private final Class<T> type;
+
+    private final URL url;
+
+    public AbstractRefererInvoker(Class<T> type, URL url) {
+        this.type = type;
+        this.url = url;
     }
 
     @Override
+    public Response invoke(Request request) {
+        return doInvoke(request);
+    }
+
+    protected abstract Response doInvoke(Request request);
+
+
+    @Override
     public URL getUrl() {
-        return null;
+        return this.url;
     }
 
     @Override
     public Class<T> getInterface() {
-        return null;
+        return type;
     }
 
     @Override

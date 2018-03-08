@@ -46,7 +46,7 @@ public class RpcRefererBean<T> implements FactoryBean, ApplicationContextAware {
 
     @Override
     public Class<?> getObjectType() {
-        return null;
+        return interfaceClass;
     }
 
     @Override
