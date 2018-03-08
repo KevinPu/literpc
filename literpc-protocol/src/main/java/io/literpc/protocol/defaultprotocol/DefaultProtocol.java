@@ -1,14 +1,15 @@
 package io.literpc.protocol.defaultprotocol;
 
+import io.literpc.core.channel.Channel;
+import io.literpc.core.client.Client;
 import io.literpc.core.exporter.DefaultExPorter;
 import io.literpc.core.exporter.Exporter;
+import io.literpc.core.handler.MessageHandler;
 import io.literpc.core.invoker.DefaultRefererInvoker;
 import io.literpc.core.invoker.Invoker;
+import io.literpc.core.server.Server;
 import io.literpc.core.url.URL;
 import io.literpc.protocol.Protocol;
-import io.literpc.transport.Channel;
-import io.literpc.transport.MessageHandler;
-import io.literpc.transport.Server;
 import io.literpc.transport.Transporter;
 import io.literpc.transport.netty.NettyTransporter;
 
@@ -50,6 +51,10 @@ public class DefaultProtocol implements Protocol {
 
     @Override
     public <T> Invoker<T> refer(Class<T> type, URL url) {
-        return new DefaultRefererInvoker<T>();
+        return new DefaultRefererInvoker<T>(type, url, getClient());
+    }
+
+    private Client getClient() {
+        return null;
     }
 }

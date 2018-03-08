@@ -1,4 +1,4 @@
-package io.literpc.transport;
+package io.literpc.core.channel;
 
 /**
  * @author kevin Pu

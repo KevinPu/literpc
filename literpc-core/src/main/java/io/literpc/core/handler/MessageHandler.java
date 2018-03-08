@@ -1,4 +1,6 @@
-package io.literpc.transport;
+package io.literpc.core.handler;
+
+import io.literpc.core.channel.Channel;
 
 /**
  * @author kevin Pu

@@ -1,7 +1,7 @@
 package io.literpc.transport.netty;
 
-import io.literpc.transport.Channel;
-import io.literpc.transport.MessageHandler;
+import io.literpc.core.channel.Channel;
+import io.literpc.core.handler.MessageHandler;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;

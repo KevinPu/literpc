@@ -1,9 +1,9 @@
 package io.literpc.transport.netty;
 
 import io.literpc.core.url.URL;
-import io.literpc.transport.Channel;
-import io.literpc.transport.MessageHandler;
-import io.literpc.transport.Server;
+import io.literpc.core.channel.Channel;
+import io.literpc.core.handler.MessageHandler;
+import io.literpc.core.server.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
