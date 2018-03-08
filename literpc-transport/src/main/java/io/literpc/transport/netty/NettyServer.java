@@ -1,6 +1,7 @@
 package io.literpc.transport.netty;
 
 import io.literpc.core.url.URL;
+import io.literpc.transport.Channel;
 import io.literpc.transport.MessageHandler;
 import io.literpc.transport.Server;
 import io.netty.bootstrap.ServerBootstrap;
@@ -15,7 +16,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 /**
  * @author kevin Pu
  */
-public class NettyServer implements Server {
+public class NettyServer implements Server, Channel {
 
     private URL url;
 
@@ -39,7 +40,8 @@ public class NettyServer implements Server {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast("handler", new NettyChannelHandler(handler));
+                            ch.pipeline().addLast("handler",
+                                    new NettyChannelHandler(NettyServer.this, handler));
                         }
                     });
 

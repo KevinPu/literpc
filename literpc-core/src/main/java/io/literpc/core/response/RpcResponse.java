@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author kevin Pu
  */
-public class RpcResponse implements Serializable {
+public class RpcResponse implements Response, Serializable {
 
     private static final long serialVersionUID = 425218278602560000L;
 
@@ -13,10 +13,22 @@ public class RpcResponse implements Serializable {
 
     private Exception exception;
 
-    private long requestId;
+    private String requestId;
 
     public Object getValue() {
         return value;
+    }
+
+    public RpcResponse(Object value, String requestId) {
+        this.value = value;
+        this.requestId = requestId;
+        this.exception = null;
+    }
+
+    public RpcResponse(Object value, Exception exception, String requestId) {
+        this.value = value;
+        this.exception = exception;
+        this.requestId = requestId;
     }
 
     public void setValue(Object value) {
@@ -31,11 +43,11 @@ public class RpcResponse implements Serializable {
         this.exception = exception;
     }
 
-    public long getRequestId() {
+    public String getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(long requestId) {
+    public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
 

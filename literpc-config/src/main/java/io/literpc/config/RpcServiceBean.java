@@ -8,6 +8,7 @@ import io.literpc.core.url.URL;
 import io.literpc.protocol.Protocol;
 import io.literpc.protocol.defaultprotocol.DefaultProtocol;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -21,8 +22,8 @@ import java.util.List;
 /**
  * @author kevin Pu
  */
-public class RpcServiceBean<T> implements InitializingBean, ApplicationContextAware,
-        ApplicationListener<ContextRefreshedEvent>, Serializable {
+public class RpcServiceBean<T> implements InitializingBean, DisposableBean,
+        ApplicationContextAware, ApplicationListener<ContextRefreshedEvent>, Serializable {
 
     private static final long serialVersionUID = 1508305705610944481L;
 
@@ -64,6 +65,24 @@ public class RpcServiceBean<T> implements InitializingBean, ApplicationContextAw
         Exporter<?> exporter = protocol.export(invoker);
 
         exporters.add(exporter);
+    }
+
+    @Override
+    public void destroy() {
+        upexport();
+    }
+
+    private void upexport() {
+        if (!exporters.isEmpty()) {
+            for (Exporter<?> exporter : exporters) {
+                try {
+                    exporter.unexport();
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                }
+            }
+            exporters.clear();
+        }
     }
 
     public String getInterfaceName() {

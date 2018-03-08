@@ -1,6 +1,7 @@
 package io.literpc.core.invoker;
 
-import io.literpc.core.response.RpcResponse;
+import io.literpc.core.request.Request;
+import io.literpc.core.response.Response;
 import io.literpc.core.url.URL;
 
 /**
@@ -8,7 +9,7 @@ import io.literpc.core.url.URL;
  */
 public interface Invoker<T> {
 
-    RpcResponse invoke();
+    Response invoke(Request request);
 
     URL getUrl();
 

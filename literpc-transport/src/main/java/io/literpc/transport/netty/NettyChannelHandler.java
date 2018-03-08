@@ -1,5 +1,6 @@
 package io.literpc.transport.netty;
 
+import io.literpc.transport.Channel;
 import io.literpc.transport.MessageHandler;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -14,7 +15,10 @@ public class NettyChannelHandler extends ChannelDuplexHandler {
 
     private MessageHandler handler;
 
-    public NettyChannelHandler(MessageHandler handler) {
+    private Channel channel;
+
+    public NettyChannelHandler(Channel channel, MessageHandler handler) {
+        this.channel = channel;
         this.handler = handler;
     }
 

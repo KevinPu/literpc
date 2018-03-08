@@ -2,6 +2,7 @@ package io.literpc.protocol.defaultprotocol;
 
 import io.literpc.core.exporter.DefaultExPorter;
 import io.literpc.core.exporter.Exporter;
+import io.literpc.core.invoker.DefaultRefererInvoker;
 import io.literpc.core.invoker.Invoker;
 import io.literpc.core.url.URL;
 import io.literpc.protocol.Protocol;
@@ -45,5 +46,10 @@ public class DefaultProtocol implements Protocol {
 
         Server server = transporter.create(url, handler);
         server.open();
+    }
+
+    @Override
+    public <T> Invoker<T> refer(Class<T> type, URL url) {
+        return new DefaultRefererInvoker<T>();
     }
 }
