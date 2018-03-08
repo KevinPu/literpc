@@ -45,16 +45,20 @@ public class DefaultProtocol implements Protocol {
 
     private void openServer(URL url) {
 
-        Server server = transporter.create(url, handler);
-        server.open();
+        Server server = transporter.createServer(url, handler);
+        server.bind();
     }
 
     @Override
     public <T> Invoker<T> refer(Class<T> type, URL url) {
-        return new DefaultRefererInvoker<T>(type, url, getClient());
+        return new DefaultRefererInvoker<T>(type, url, getClient(url));
     }
 
-    private Client getClient() {
-        return null;
+    private Client getClient(URL url) {
+        Client client = transporter.createClient(url, handler);
+
+        client.connect();
+
+        return client;
     }
 }

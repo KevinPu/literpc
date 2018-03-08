@@ -11,13 +11,13 @@ import java.net.SocketAddress;
 /**
  * @author kevin Pu
  */
-public class NettyChannelHandler extends ChannelDuplexHandler {
+public class NettyServerHandler extends ChannelDuplexHandler {
 
-    private MessageHandler handler;
+    private final MessageHandler handler;
 
-    private Channel channel;
+    private final Channel channel;
 
-    public NettyChannelHandler(Channel channel, MessageHandler handler) {
+    public NettyServerHandler(Channel channel, MessageHandler handler) {
         this.channel = channel;
         this.handler = handler;
     }

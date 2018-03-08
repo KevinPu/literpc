@@ -5,5 +5,5 @@ package io.literpc.core.server;
  */
 public interface Server {
 
-    void open();
+    void bind();
 }

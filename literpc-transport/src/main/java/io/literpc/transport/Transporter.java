@@ -11,7 +11,7 @@ import io.literpc.core.url.URL;
  */
 public interface Transporter {
 
-    Server create(URL url, MessageHandler handler);
+    Server createServer(URL url, MessageHandler handler);
 
-    Client connect(URL url);
+    Client createClient(URL url, MessageHandler handler);
 }
