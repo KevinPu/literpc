@@ -39,6 +39,10 @@ public class URL implements Serializable {
         this(protocol, null, port, path, null);
     }
 
+    public String getAddress() {
+        return port <= 0 ? host : host + ":" + port;
+    }
+
     public String getProtocol() {
         return protocol;
     }

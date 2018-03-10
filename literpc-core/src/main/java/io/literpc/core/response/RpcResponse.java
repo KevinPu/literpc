@@ -43,6 +43,7 @@ public class RpcResponse implements Response, Serializable {
         this.exception = exception;
     }
 
+    @Override
     public String getRequestId() {
         return requestId;
     }

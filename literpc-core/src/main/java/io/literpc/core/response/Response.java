@@ -6,4 +6,6 @@ package io.literpc.core.response;
 public interface Response {
 
     Object getValue();
+
+    String getRequestId();
 }

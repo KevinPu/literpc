@@ -13,44 +13,57 @@ import io.literpc.protocol.Protocol;
 import io.literpc.transport.Transporter;
 import io.literpc.transport.netty.NettyTransporter;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * @author kevin Pu
  */
 public class DefaultProtocol implements Protocol {
 
+    private final Map<String, Server> serverMap = new ConcurrentHashMap<String, Server>();
+
+    private final Map<String, Client> clientMap = new ConcurrentHashMap<String, Client>();
+
     private static final Transporter transporter = new NettyTransporter();
 
-    private MessageHandler handler;
+    private MessageHandler handler = new MessageHandler() {
+        @Override
+        public Object handle(Channel channel, Object message) {
+            return null;
+        }
+    };
 
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) {
 
-        initMessageHandler(invoker);
-
         Exporter<T> exporter = new DefaultExPorter<T>(invoker);
 
-        openServer(invoker.getUrl());
-
+        Server server = getServer(invoker.getUrl());
         return exporter;
     }
 
-    private <T> void initMessageHandler(Invoker<T> invoker) {
-        handler = new MessageHandler() {
-            @Override
-            public Object handle(Channel channel, Object message) {
-                return null;
-            }
-        };
-    }
 
-    private void openServer(URL url) {
+    private Server getServer(URL url) {
 
-        Server server = transporter.createServer(url, handler);
+        String key = url.getAddress();
+
+        Server server = serverMap.get(key);
+        if (server != null) {
+            return server;
+        }
+        server = transporter.createServer(url, handler);
         server.bind();
+
+        serverMap.put(key, server);
+
+        return server;
     }
 
     @Override
     public <T> Invoker<T> refer(Class<T> type, URL url) {
+        Client client = getClient(url);
+
         return new DefaultRefererInvoker<T>(type, url, getClient(url));
     }
 

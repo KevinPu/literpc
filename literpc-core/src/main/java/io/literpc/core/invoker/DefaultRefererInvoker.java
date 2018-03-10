@@ -19,7 +19,7 @@ public class DefaultRefererInvoker<T> extends AbstractRefererInvoker<T> {
 
     @Override
     protected Response doInvoke(Request request) {
-        return null;
+        return client.request(request);
     }
 
 }
