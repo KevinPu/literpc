@@ -18,6 +18,6 @@ public class NettyTransporter implements Transporter {
 
     @Override
     public Client createClient(URL url, MessageHandler handler) {
-        return new NettyClient(url, handler);
+        return new NettyClient(url);
     }
 }

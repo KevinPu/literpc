@@ -35,6 +35,7 @@ public class RpcResponse implements Response, Serializable {
         this.value = value;
     }
 
+    @Override
     public Exception getException() {
         return exception;
     }

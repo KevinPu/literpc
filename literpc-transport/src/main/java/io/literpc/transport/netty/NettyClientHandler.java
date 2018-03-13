@@ -4,7 +4,9 @@ import io.literpc.core.request.Request;
 import io.literpc.core.response.Response;
 import io.literpc.core.response.ResponseFuture;
 import io.literpc.core.response.RpcResponseFuture;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelDuplexHandler;
+import io.netty.channel.ChannelHandlerContext;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,17 +40,15 @@ public class NettyClientHandler extends ChannelDuplexHandler {
         final CountDownLatch latch = new CountDownLatch(1);
         ResponseFuture response = new RpcResponseFuture();
         responseFutureMap.put(request.getRequestId(), response);
-        channel.writeAndFlush(request).addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-                latch.countDown();
-            }
-        });
+
+        channel.writeAndFlush(request).addListener((future) -> latch.countDown());
+
         try {
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return response;
     }
 

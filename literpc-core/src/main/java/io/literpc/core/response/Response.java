@@ -8,4 +8,6 @@ public interface Response {
     Object getValue();
 
     String getRequestId();
+
+    Exception getException();
 }
