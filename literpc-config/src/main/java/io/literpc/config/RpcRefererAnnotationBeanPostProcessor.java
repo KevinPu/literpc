@@ -33,10 +33,10 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
     private ApplicationContext applicationContext;
 
     private final ConcurrentMap<String, InjectionMetadata> injectionMetadataCache =
-            new ConcurrentHashMap<String, InjectionMetadata>(256);
+            new ConcurrentHashMap<>(256);
 
     private final ConcurrentMap<String, RpcRefererBean<?>> rpcRefererBeansCache =
-            new ConcurrentHashMap<String, RpcRefererBean<?>>();
+            new ConcurrentHashMap<>();
 
     @Override
     public PropertyValues postProcessPropertyValues(PropertyValues pvs, PropertyDescriptor[] pds, Object bean, String beanName) throws BeansException {
@@ -77,7 +77,7 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
     }
 
     private InjectionMetadata buildReferenceMetadata(Class<?> clazz) {
-        final List<InjectionMetadata.InjectedElement> elements = new LinkedList<InjectionMetadata.InjectedElement>();
+        final List<InjectionMetadata.InjectedElement> elements = new LinkedList<>();
 
         elements.addAll(findFieldReferenceMetadata(clazz));
 
@@ -85,19 +85,12 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
     }
 
     private List<InjectionMetadata.InjectedElement> findFieldReferenceMetadata(Class<?> clazz) {
-        final List<InjectionMetadata.InjectedElement> elements = new LinkedList<InjectionMetadata.InjectedElement>();
+        final List<InjectionMetadata.InjectedElement> elements = new LinkedList<>();
 
-        ReflectionUtils.doWithFields(clazz, new ReflectionUtils.FieldCallback() {
-            @Override
-            public void doWith(Field field) throws IllegalArgumentException {
-
-                RpcReferer rpcReferer = getAnnotation(field, RpcReferer.class);
-
-                if (rpcReferer != null) {
-
-                    elements.add(new RpcRefererFieldElement(field, rpcReferer));
-                }
-
+        ReflectionUtils.doWithFields(clazz, (Field field) -> {
+            RpcReferer rpcReferer = getAnnotation(field, RpcReferer.class);
+            if (rpcReferer != null) {
+                elements.add(new RpcRefererFieldElement(field, rpcReferer));
             }
         });
 
@@ -145,7 +138,7 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
         RpcRefererBean<?> rpcRefererBean = rpcRefererBeansCache.get(rpcRefererBeanCacheKey);
 
         if (rpcRefererBean == null) {
-            rpcRefererBean = new RpcRefererBean<Object>();
+            rpcRefererBean = new RpcRefererBean<>();
 
             rpcRefererBean.setApplicationContext(applicationContext);
             rpcRefererBean.setInterfaceClass(rpcRefererClass);
