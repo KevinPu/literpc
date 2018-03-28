@@ -37,7 +37,7 @@ public class RpcServiceBean<T> implements InitializingBean, DisposableBean,
     // interface type
     private String interfaceName;
     private Class<?> interfaceClass;
-    // reference to interface impl
+    // referer to interface impl
     private T ref;
 
     private LiterpcProperties literpcProperties;
@@ -57,6 +57,7 @@ public class RpcServiceBean<T> implements InitializingBean, DisposableBean,
         export();
     }
 
+    @SuppressWarnings("unchecked")
     private void export() {
         URL url = new URL(literpcProperties.getProtocol(), literpcProperties.getPort(), interfaceName);
 

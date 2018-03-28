@@ -2,16 +2,14 @@ package io.literpc.transport.netty;
 
 import io.literpc.core.channel.Channel;
 import io.literpc.core.handler.MessageHandler;
-import io.netty.channel.ChannelDuplexHandler;
+import io.literpc.core.request.Request;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPromise;
-
-import java.net.SocketAddress;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  * @author kevin Pu
  */
-public class NettyServerHandler extends ChannelDuplexHandler {
+public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
 
     private final MessageHandler handler;
 
@@ -23,22 +21,10 @@ public class NettyServerHandler extends ChannelDuplexHandler {
     }
 
     @Override
-    public void bind(ChannelHandlerContext ctx, SocketAddress localAddress, ChannelPromise promise) throws Exception {
-        super.bind(ctx, localAddress, promise);
-    }
+    protected void channelRead0(ChannelHandlerContext ctx, Request request) {
 
-    @Override
-    public void read(ChannelHandlerContext ctx) throws Exception {
-        super.read(ctx);
-    }
+        Object response = handler.handle(channel, request);
 
-    @Override
-    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-        super.write(ctx, msg, promise);
-    }
-
-    @Override
-    public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) throws Exception {
-        super.connect(ctx, remoteAddress, localAddress, promise);
+        ctx.writeAndFlush(response);
     }
 }

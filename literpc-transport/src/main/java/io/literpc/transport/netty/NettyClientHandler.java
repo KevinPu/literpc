@@ -28,7 +28,7 @@ public class NettyClientHandler extends ChannelDuplexHandler {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if (msg instanceof Response) {
             Response response = (Response) msg;
             ResponseFuture responseFuture = responseFutureMap.remove(response.getRequestId());

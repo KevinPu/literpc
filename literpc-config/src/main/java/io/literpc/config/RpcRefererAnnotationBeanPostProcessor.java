@@ -40,18 +40,18 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
 
     @Override
     public PropertyValues postProcessPropertyValues(PropertyValues pvs, PropertyDescriptor[] pds, Object bean, String beanName) throws BeansException {
-        InjectionMetadata metadata = findReferenceMetadata(beanName, bean.getClass(), pvs);
+        InjectionMetadata metadata = findRpcRefererMetadata(beanName, bean.getClass(), pvs);
         try {
             metadata.inject(bean, beanName, pvs);
         } catch (BeanCreationException ex) {
             throw ex;
         } catch (Throwable ex) {
-            throw new BeanCreationException(beanName, "Injection of @Reference dependencies failed", ex);
+            throw new BeanCreationException(beanName, "Injection of @RpcReferer dependencies failed", ex);
         }
         return pvs;
     }
 
-    private InjectionMetadata findReferenceMetadata(String beanName, Class<?> clazz, PropertyValues pvs) {
+    private InjectionMetadata findRpcRefererMetadata(String beanName, Class<?> clazz, PropertyValues pvs) {
         // Fall back to class name as cache key, for backwards compatibility with custom callers.
         String cacheKey = (StringUtils.hasLength(beanName) ? beanName : clazz.getName());
         // Quick check on the concurrent map first, with minimal locking.
@@ -64,11 +64,11 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
                         metadata.clear(pvs);
                     }
                     try {
-                        metadata = buildReferenceMetadata(clazz);
+                        metadata = buildRpcRefererMetadata(clazz);
                         this.injectionMetadataCache.put(cacheKey, metadata);
                     } catch (NoClassDefFoundError err) {
                         throw new IllegalStateException("Failed to introspect bean class [" + clazz.getName() +
-                                "] for reference metadata: could not find class that it depends on", err);
+                                "] for RpcReferer metadata: could not find class that it depends on", err);
                     }
                 }
             }
@@ -76,15 +76,15 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
         return metadata;
     }
 
-    private InjectionMetadata buildReferenceMetadata(Class<?> clazz) {
+    private InjectionMetadata buildRpcRefererMetadata(Class<?> clazz) {
         final List<InjectionMetadata.InjectedElement> elements = new LinkedList<>();
 
-        elements.addAll(findFieldReferenceMetadata(clazz));
+        elements.addAll(findFieldRpcRefererMetadata(clazz));
 
         return new InjectionMetadata(clazz, elements);
     }
 
-    private List<InjectionMetadata.InjectedElement> findFieldReferenceMetadata(Class<?> clazz) {
+    private List<InjectionMetadata.InjectedElement> findFieldRpcRefererMetadata(Class<?> clazz) {
         final List<InjectionMetadata.InjectedElement> elements = new LinkedList<>();
 
         ReflectionUtils.doWithFields(clazz, (Field field) -> {
@@ -124,7 +124,7 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
 
             Class<?> rpcRefererClass = field.getType();
 
-            Object rpcRefererBean = buildReferenceBean(rpcReferer, rpcRefererClass);
+            Object rpcRefererBean = buildpcRefererBean(rpcReferer, rpcRefererClass);
 
             ReflectionUtils.makeAccessible(field);
 
@@ -132,7 +132,7 @@ public class RpcRefererAnnotationBeanPostProcessor extends InstantiationAwareBea
         }
     }
 
-    private Object buildReferenceBean(RpcReferer rpcReferer, Class<?> rpcRefererClass) {
+    private Object buildpcRefererBean(RpcReferer rpcReferer, Class<?> rpcRefererClass) {
         String rpcRefererBeanCacheKey = rpcRefererClass.getName();
 
         RpcRefererBean<?> rpcRefererBean = rpcRefererBeansCache.get(rpcRefererBeanCacheKey);
