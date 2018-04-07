@@ -2,6 +2,7 @@ package io.literpc.transport.netty;
 
 import io.literpc.core.channel.Channel;
 import io.literpc.core.handler.MessageHandler;
+import io.literpc.core.request.RpcRequest;
 import io.literpc.core.server.Server;
 import io.literpc.core.url.URL;
 import io.netty.bootstrap.ServerBootstrap;
@@ -40,8 +41,10 @@ public class NettyServer implements Server, Channel {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast("handler",
-                                    new NettyServerHandler(NettyServer.this, handler));
+                            ch.pipeline()
+                                    .addLast(new RpcDecoder())
+                                    .addLast(new RpcEncoder<RpcRequest>())
+                                    .addLast(new NettyServerHandler(NettyServer.this, handler));
                         }
                     });
 

@@ -11,5 +11,11 @@
 
     <artifactId>literpc-core</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

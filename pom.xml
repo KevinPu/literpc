@@ -29,10 +29,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <netty_version>4.1.21.Final</netty_version>
-        <zookeeper_version>3.4.9</zookeeper_version>
-        <zkclient_version>0.10</zkclient_version>
-        <cooma_version>0.4.1-SNAPSHOT</cooma_version>
+        <netty.version>4.1.21.Final</netty.version>
+        <zookeeper.version>3.4.9</zookeeper.version>
+        <zkclient.version>0.10</zkclient.version>
+        <kryo.version>4.0.0</kryo.version>
+        <cooma.version>0.4.1-SNAPSHOT</cooma.version>
         <java.version>1.8</java.version>
     </properties>
     <dependencyManagement>
@@ -40,24 +41,30 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>${netty_version}</version>
+                <version>${netty.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
-                <version>${zookeeper_version}</version>
+                <version>${zookeeper.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
-                <version>${zkclient_version}</version>
+                <version>${zkclient.version}</version>
             </dependency>
             <!-- SPI 扩展框架 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>cooma</artifactId>
-                <version>${cooma_version}</version>
+                <version>${cooma.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.esotericsoftware</groupId>
+                <artifactId>kryo</artifactId>
+                <version>${kryo.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

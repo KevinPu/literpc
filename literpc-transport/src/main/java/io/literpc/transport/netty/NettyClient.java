@@ -2,6 +2,7 @@ package io.literpc.transport.netty;
 
 import io.literpc.core.client.Client;
 import io.literpc.core.request.Request;
+import io.literpc.core.request.RpcRequest;
 import io.literpc.core.response.Response;
 import io.literpc.core.url.URL;
 import io.netty.bootstrap.Bootstrap;
@@ -35,7 +36,10 @@ public class NettyClient implements Client {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast("handler", handler);
+                            ch.pipeline()
+                                    .addLast(new RpcDecoder())
+                                    .addLast(new RpcEncoder<RpcRequest>())
+                                    .addLast("handler", handler);
                         }
                     });
             ChannelFuture future = bootstrap.connect(url.getHost(), url.getPort());
