@@ -1,20 +1,25 @@
 package io.literpc.core.response;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**
  * @author kevin Pu
  */
 public class RpcResponseFuture implements ResponseFuture {
 
-    private Sync sync;
+    private FutureState state = new FutureState();
+
+    private final Object lock = new Object();
 
     private Object value;
 
     private Exception exception;
 
     private String requestId;
+
+    private final long createTime = System.currentTimeMillis();
+    // 超时时长
+    private int timeout = 3000;
 
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
@@ -28,12 +33,46 @@ public class RpcResponseFuture implements ResponseFuture {
 
     @Override
     public boolean isDone() {
-        return sync.isDone();
+        return state.isDone();
     }
 
     @Override
     public Object get() {
-        sync.acquire(-1);
+
+        if (state.isDoing()) {
+            // 不处理超时的情况，将会一直等待
+            if (timeout <= 0) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                long waitTime = timeout - (System.currentTimeMillis() - createTime);
+                if (waitTime > 0) {
+                    for (; ; ) {
+                        try {
+                            lock.wait(waitTime);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (state.isDone()) {
+                            break;
+                        } else {
+                            waitTime = timeout - (System.currentTimeMillis() - createTime);
+                            if (waitTime <= 0) {
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (state.isDoing()) {
+                    throw new RuntimeException("请求超时");
+                }
+            }
+        }
+
         return this.value;
     }
 
@@ -58,7 +97,12 @@ public class RpcResponseFuture implements ResponseFuture {
     }
 
     private void done() {
-        sync.release(1);
+        synchronized (lock) {
+            if (state.isDoing()) {
+                state.setStatus(FutureState.DONE);
+                lock.notifyAll();
+            }
+        }
     }
 
     @Override
@@ -76,7 +120,31 @@ public class RpcResponseFuture implements ResponseFuture {
         done();
     }
 
-    static class Sync extends AbstractQueuedSynchronizer {
+
+    private class FutureState {
+        private static final int DONE = 1;
+        private static final int DOING = 0;
+
+        private volatile int status = DOING;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        private boolean isDone() {
+            return this.status == DONE;
+        }
+
+        private boolean isDoing() {
+            return this.status == DOING;
+        }
+    }
+
+/*    static class Sync extends AbstractQueuedSynchronizer {
 
         private static final long serialVersionUID = -2746344557811998333L;
 
@@ -97,5 +165,5 @@ public class RpcResponseFuture implements ResponseFuture {
             return getState() == DONE;
         }
 
-    }
+    }*/
 }
